@@ -6,14 +6,15 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    //Context : DB tabloları ile proje classlarını bağlamak
-    
-    public class NorthwindContext:DbContext
+    //context : Db tabloları ile proje classlarını bağlamak
+    public class NorthwindContext : DbContext
     {
+        //bu method senin projenin hangi veritabanıyla bağlantılı olduğunu belirttiğin method
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Northwind;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=Northwind;Trusted_Connection=true");
         }
+
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }

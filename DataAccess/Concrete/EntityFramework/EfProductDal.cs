@@ -9,16 +9,16 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    //NuGet
     public class EfProductDal : IProductDal
     {
         public void Add(Product entity)
         {
+            //IDisposable pattern implementation of c#
             using (NorthwindContext context = new NorthwindContext())
             {
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
+                var addedEntity = context.Entry(entity);//referansı yakala
+                addedEntity.State = EntityState.Added; //bu eklenecek bir nesne
+                context.SaveChanges(); //ekle
             }
         }
 
@@ -26,9 +26,9 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (NorthwindContext context = new NorthwindContext())
             {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
+                var deletedEntity = context.Entry(entity);//referansı yakala
+                deletedEntity.State = EntityState.Deleted; //bu silinecek bir nesne
+                context.SaveChanges(); //sil
             }
         }
 
@@ -44,7 +44,9 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (NorthwindContext context = new NorthwindContext())
             {
-                return filter == null ? context.Set<Product>().ToList() : context.Set<Product>().Where(filter).ToList();
+                return filter == null
+                    ? context.Set<Product>().ToList()
+                    : context.Set<Product>().Where(filter).ToList();
             }
         }
 
@@ -52,9 +54,9 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (NorthwindContext context = new NorthwindContext())
             {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
+                var updatedEntity = context.Entry(entity);//referansı yakala
+                updatedEntity.State = EntityState.Modified; //bu güncellenecek bir nesne
+                context.SaveChanges(); //güncelle
             }
         }
     }
